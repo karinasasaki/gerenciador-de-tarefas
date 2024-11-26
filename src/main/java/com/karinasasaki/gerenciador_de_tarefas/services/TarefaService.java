@@ -20,4 +20,8 @@ public class TarefaService {
   public Tarefa findById(Long id) {
     return tarefaRepository.findById(id).get();
   }
+
+  public Tarefa insert(Tarefa tarefa) {
+    return tarefaRepository.save(tarefa);
+  }
 }
