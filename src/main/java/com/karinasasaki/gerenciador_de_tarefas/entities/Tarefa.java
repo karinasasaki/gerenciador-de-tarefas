@@ -1,5 +1,6 @@
 package com.karinasasaki.gerenciador_de_tarefas.entities;
 
+import com.karinasasaki.gerenciador_de_tarefas.entities.enums.StatusTarefa;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -18,7 +19,7 @@ public class Tarefa implements Serializable {
   private Long id;
   private String titulo;
   private String descricao;
-  private String status = "PENDENTE";
+  private Integer status = 0;
   private Calendar dataCriacao = Calendar.getInstance();
   private Calendar dataConclusao;
 
@@ -49,12 +50,14 @@ public class Tarefa implements Serializable {
     this.descricao = descricao;
   }
 
-  public String getStatus() {
-    return status;
+  public StatusTarefa getStatus() {
+    return StatusTarefa.getStatus(status);
   }
 
-  public void setStatus(String status) {
-    this.status = status;
+  public void setStatus(StatusTarefa status) {
+    if (status != null) {
+      this.status = status.getCode();
+    }
   }
 
   public Calendar getDataCriacao() {
