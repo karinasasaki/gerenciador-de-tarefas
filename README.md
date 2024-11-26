@@ -6,3 +6,5 @@ Linguagem: Java 17
 Framework: Spring Boot 3.4.0
 Banco de dados: H2
 //url: http://localhost:8080/banco-de-dados
+Documentação de API: Swagger
+//url: http://localhost:8080/swagger-ui/index.html
