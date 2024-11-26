@@ -21,6 +21,10 @@ public class TarefaService {
     return tarefaRepository.save(tarefa);
   }
 
+  public void delete(Long id) {
+    tarefaRepository.deleteById(id);
+  }
+
   public Tarefa update(Long id, Tarefa tarefaAtualizada) {
     Tarefa tarefa = tarefaRepository.getReferenceById(id);
     atualizarTarefa(tarefa, tarefaAtualizada);
