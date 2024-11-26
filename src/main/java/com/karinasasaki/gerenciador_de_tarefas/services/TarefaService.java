@@ -17,11 +17,20 @@ public class TarefaService {
     return tarefaRepository.findAll();
   }
 
-  public Tarefa findById(Long id) {
-    return tarefaRepository.findById(id).get();
-  }
-
   public Tarefa insert(Tarefa tarefa) {
     return tarefaRepository.save(tarefa);
+  }
+
+  public Tarefa update(Long id, Tarefa tarefaAtualizada) {
+    Tarefa tarefa = tarefaRepository.getReferenceById(id);
+    atualizarTarefa(tarefa, tarefaAtualizada);
+    return tarefaRepository.save(tarefa);
+  }
+
+  private void atualizarTarefa(Tarefa tarefa, Tarefa tarefaAtualizada) {
+    tarefa.setTitulo(tarefaAtualizada.getTitulo());
+    tarefa.setDescricao(tarefaAtualizada.getDescricao());
+    tarefa.setStatus(tarefaAtualizada.getStatus());
+    tarefa.setDataConclusao(tarefaAtualizada.getDataConclusao());
   }
 }

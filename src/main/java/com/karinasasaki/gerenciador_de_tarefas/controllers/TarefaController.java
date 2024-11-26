@@ -14,7 +14,6 @@ import java.util.List;
 @RequestMapping(value = "/tarefas")
 public class TarefaController {
 
-
   @Autowired
   private TarefaService tarefaService;
 
@@ -30,5 +29,11 @@ public class TarefaController {
     URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
         .buildAndExpand(tarefa.getId()).toUri();
     return ResponseEntity.created(uri).body(tarefa);
+  }
+
+  @PutMapping(value = "/{id}")
+  public ResponseEntity<Tarefa> atualizarTarefa(@PathVariable Long id, @RequestBody Tarefa tarefa) {
+    tarefa = tarefaService.update(id, tarefa);
+    return ResponseEntity.ok().body(tarefa);
   }
 }

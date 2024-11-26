@@ -20,7 +20,7 @@ public class Tarefa implements Serializable {
   private String titulo;
   private String descricao;
   private Integer status = 0;
-  private Calendar dataCriacao = Calendar.getInstance();
+  private final Calendar dataCriacao = Calendar.getInstance();
   private Calendar dataConclusao;
 
   public Tarefa() {}
