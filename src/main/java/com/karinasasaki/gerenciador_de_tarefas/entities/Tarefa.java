@@ -4,7 +4,8 @@ import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Date;
+import java.util.Calendar;
+import java.util.Objects;
 
 @Entity
 @Table(name = "tarefa")
@@ -17,27 +18,19 @@ public class Tarefa implements Serializable {
   private Long id;
   private String titulo;
   private String descricao;
-  private String status;
-  private Date dataCriacao;
-  private Date dataConclusao;
+  private String status = "PENDENTE";
+  private Calendar dataCriacao = Calendar.getInstance();
+  private Calendar dataConclusao;
 
   public Tarefa() {}
 
-  public Tarefa(Long id, String titulo, String descricao, String status, Date dataCriacao, Date dataConclusao) {
-    this.id = id;
+  public Tarefa(String titulo, String descricao) {
     this.titulo = titulo;
     this.descricao = descricao;
-    this.status = status;
-    this.dataCriacao = dataCriacao;
-    this.dataConclusao = dataConclusao;
   }
 
   public Long getId() {
     return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
   }
 
   public String getTitulo() {
@@ -64,19 +57,28 @@ public class Tarefa implements Serializable {
     this.status = status;
   }
 
-  public Date getDataCriacao() {
+  public Calendar getDataCriacao() {
     return dataCriacao;
   }
 
-  public void setDataCriacao(Date dataCriacao) {
-    this.dataCriacao = dataCriacao;
-  }
-
-  public Date getDataConclusao() {
+  public Calendar getDataConclusao() {
     return dataConclusao;
   }
 
-  public void setDataConclusao(Date dataConclusao) {
+  public void setDataConclusao(Calendar dataConclusao) {
     this.dataConclusao = dataConclusao;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Tarefa tarefa = (Tarefa) o;
+    return Objects.equals(id, tarefa.id);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id);
   }
 }
