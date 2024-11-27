@@ -11,24 +11,24 @@ import java.util.List;
 public class TarefaService {
 
   @Autowired
-  private TarefaRepository tarefaRepository;
+  private TarefaRepository repository;
 
   public List<Tarefa> findAll() {
-    return tarefaRepository.findAll();
+    return repository.findAll();
   }
 
   public Tarefa insert(Tarefa tarefa) {
-    return tarefaRepository.save(tarefa);
+    return repository.save(tarefa);
   }
 
   public void delete(Long id) {
-    tarefaRepository.deleteById(id);
+    repository.deleteById(id);
   }
 
   public Tarefa update(Long id, Tarefa tarefaAtualizada) {
-    Tarefa tarefa = tarefaRepository.getReferenceById(id);
+    Tarefa tarefa = repository.getReferenceById(id);
     atualizarTarefa(tarefa, tarefaAtualizada);
-    return tarefaRepository.save(tarefa);
+    return repository.save(tarefa);
   }
 
   private void atualizarTarefa(Tarefa tarefa, Tarefa tarefaAtualizada) {
