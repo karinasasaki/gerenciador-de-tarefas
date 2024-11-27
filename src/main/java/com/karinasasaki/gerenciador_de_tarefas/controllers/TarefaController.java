@@ -15,17 +15,17 @@ import java.util.List;
 public class TarefaController {
 
   @Autowired
-  private TarefaService tarefaService;
+  private TarefaService service;
 
   @GetMapping
   public ResponseEntity<List<Tarefa>> listarTarefas() {
-    List<Tarefa> tarefas = tarefaService.findAll();
+    List<Tarefa> tarefas = service.findAll();
     return ResponseEntity.ok().body(tarefas);
   }
 
   @PostMapping
   public ResponseEntity<Tarefa> adicionarTarefa(@RequestBody Tarefa tarefa) {
-    tarefa = tarefaService.insert(tarefa);
+    tarefa = service.insert(tarefa);
     URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
         .buildAndExpand(tarefa.getId()).toUri();
     return ResponseEntity.created(uri).body(tarefa);
@@ -33,13 +33,13 @@ public class TarefaController {
 
   @DeleteMapping(value = "/{id}")
   public ResponseEntity<Void> excluirTarefa(@PathVariable Long id) {
-    tarefaService.delete(id);
+    service.delete(id);
     return ResponseEntity.noContent().build();
   }
 
   @PutMapping(value = "/{id}")
   public ResponseEntity<Tarefa> atualizarTarefa(@PathVariable Long id, @RequestBody Tarefa tarefa) {
-    tarefa = tarefaService.update(id, tarefa);
+    tarefa = service.update(id, tarefa);
     return ResponseEntity.ok().body(tarefa);
   }
 }
