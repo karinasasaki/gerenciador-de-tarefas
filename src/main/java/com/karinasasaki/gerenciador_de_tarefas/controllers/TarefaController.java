@@ -32,13 +32,13 @@ public class TarefaController {
   }
 
   @DeleteMapping(value = "/{id}")
-  public ResponseEntity<Void> excluirTarefa(@PathVariable Long id) {
+  public ResponseEntity<Void> excluirTarefa(@PathVariable Integer id) {
     service.delete(id);
     return ResponseEntity.noContent().build();
   }
 
   @PutMapping(value = "/{id}")
-  public ResponseEntity<Tarefa> atualizarTarefa(@PathVariable Long id, @RequestBody Tarefa tarefa) {
+  public ResponseEntity<Tarefa> atualizarTarefa(@PathVariable Integer id, @RequestBody Tarefa tarefa) {
     tarefa = service.update(id, tarefa);
     return ResponseEntity.ok().body(tarefa);
   }

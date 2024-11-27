@@ -16,7 +16,7 @@ public class Tarefa implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private Integer id;
   private String titulo;
   private String descricao;
   private Integer status = 0;
@@ -30,7 +30,7 @@ public class Tarefa implements Serializable {
     this.descricao = descricao;
   }
 
-  public Long getId() {
+  public Integer getId() {
     return id;
   }
 

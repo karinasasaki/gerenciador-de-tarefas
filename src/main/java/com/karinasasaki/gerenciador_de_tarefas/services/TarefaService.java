@@ -21,11 +21,11 @@ public class TarefaService {
     return repository.save(tarefa);
   }
 
-  public void delete(Long id) {
+  public void delete(Integer id) {
     repository.deleteById(id);
   }
 
-  public Tarefa update(Long id, Tarefa tarefaAtualizada) {
+  public Tarefa update(Integer id, Tarefa tarefaAtualizada) {
     Tarefa tarefa = repository.getReferenceById(id);
     atualizarTarefa(tarefa, tarefaAtualizada);
     return repository.save(tarefa);
