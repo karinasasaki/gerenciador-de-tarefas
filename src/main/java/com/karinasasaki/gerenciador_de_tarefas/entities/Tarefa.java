@@ -2,6 +2,8 @@ package com.karinasasaki.gerenciador_de_tarefas.entities;
 
 import com.karinasasaki.gerenciador_de_tarefas.entities.enums.StatusTarefa;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,8 +23,11 @@ public class Tarefa implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
+  @NotBlank(message = "O campo título deve ser informado")
+  @Size(max = 200, message = "O tamanho do campo titulo excedeu 200 caracteres")
   private String titulo;
 
+  @Size(max = 1500, message = "O tamanho do campo titulo excedeu 1500 caracteres")
   private String descricao;
 
   private Integer status = 0;

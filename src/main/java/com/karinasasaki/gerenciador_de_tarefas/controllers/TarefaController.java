@@ -2,6 +2,7 @@ package com.karinasasaki.gerenciador_de_tarefas.controllers;
 
 import com.karinasasaki.gerenciador_de_tarefas.entities.Tarefa;
 import com.karinasasaki.gerenciador_de_tarefas.services.TarefaService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ public class TarefaController {
   }
 
   @PostMapping
-  public ResponseEntity<Tarefa> adicionarTarefa(@RequestBody Tarefa tarefa) {
+  public ResponseEntity<Tarefa> adicionarTarefa(@Valid @RequestBody Tarefa tarefa) {
     tarefa = service.insert(tarefa);
     URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
         .buildAndExpand(tarefa.getId()).toUri();
