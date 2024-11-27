@@ -3,6 +3,7 @@ package com.karinasasaki.gerenciador_de_tarefas.entities;
 import com.karinasasaki.gerenciador_de_tarefas.entities.enums.StatusTarefa;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -11,6 +12,7 @@ import java.util.Calendar;
 @Entity
 @Table(name = "tarefa")
 @Data
+@NoArgsConstructor
 public class Tarefa implements Serializable {
   @Serial
   private static final long serialVersionUID = 1L;
@@ -28,8 +30,6 @@ public class Tarefa implements Serializable {
   private final Calendar dataCriacao = Calendar.getInstance();
 
   private Calendar dataConclusao;
-
-  public Tarefa() {}
 
   public Tarefa(String titulo, String descricao) {
     this.titulo = titulo;
