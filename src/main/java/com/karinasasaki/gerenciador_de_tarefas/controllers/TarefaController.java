@@ -12,7 +12,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/tarefas")
+@RequestMapping(value = "tarefas")
 public class TarefaController {
 
   @Autowired
@@ -32,14 +32,14 @@ public class TarefaController {
     return ResponseEntity.created(uri).body(tarefa);
   }
 
-  @DeleteMapping(value = "/{id}")
-  public ResponseEntity<Void> excluirTarefa(@PathVariable Integer id) {
+  @DeleteMapping(value = "{id}")
+  public ResponseEntity<Void> excluirTarefa(@PathVariable("id") Integer id) {
     service.delete(id);
     return ResponseEntity.noContent().build();
   }
 
-  @PutMapping(value = "/{id}")
-  public ResponseEntity<Tarefa> atualizarTarefa(@PathVariable Integer id, @RequestBody Tarefa tarefa) {
+  @PutMapping(value = "{id}")
+  public ResponseEntity<Tarefa> atualizarTarefa(@PathVariable("id") Integer id, @RequestBody Tarefa tarefa) {
     tarefa = service.update(id, tarefa);
     return ResponseEntity.ok().body(tarefa);
   }
