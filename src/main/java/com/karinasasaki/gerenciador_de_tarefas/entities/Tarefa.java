@@ -25,13 +25,17 @@ public class Tarefa implements Serializable {
 
   @NotBlank(message = "O campo título deve ser informado")
   @Size(max = 200, message = "O tamanho do campo titulo excedeu 200 caracteres")
+  @Column(length = 200, nullable = false)
   private String titulo;
 
   @Size(max = 1500, message = "O tamanho do campo titulo excedeu 1500 caracteres")
+  @Column(length = 1500)
   private String descricao;
 
+  @Column(nullable = false)
   private Integer status = 0;
 
+  @Column(nullable = false)
   private final Calendar dataCriacao = Calendar.getInstance();
 
   private Calendar dataConclusao;
