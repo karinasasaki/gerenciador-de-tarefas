@@ -4,15 +4,16 @@ import com.karinasasaki.gerenciador_de_tarefas.entities.enums.StatusTarefa;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Calendar;
 
 @Entity
-@Table(name = "tarefa")
 @Data
 @NoArgsConstructor
 public class Tarefa implements Serializable {
@@ -21,6 +22,7 @@ public class Tarefa implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Setter(AccessLevel.NONE)
   private Integer id;
 
   @NotBlank(message = "O campo título deve ser informado")
