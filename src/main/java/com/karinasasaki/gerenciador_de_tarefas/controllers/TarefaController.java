@@ -20,13 +20,13 @@ public class TarefaController {
 
   @GetMapping
   public ResponseEntity<List<Tarefa>> listarTarefas() {
-    List<Tarefa> tarefas = service.findAll();
+    List<Tarefa> tarefas = service.listarTarefas();
     return ResponseEntity.ok().body(tarefas);
   }
 
   @PostMapping
-  public ResponseEntity<Tarefa> adicionarTarefa(@Valid @RequestBody Tarefa tarefa) {
-    tarefa = service.insert(tarefa);
+  public ResponseEntity<Tarefa> criarTarefa(@Valid @RequestBody Tarefa tarefa) {
+    tarefa = service.criarTarefa(tarefa);
     URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
         .buildAndExpand(tarefa.getId()).toUri();
     return ResponseEntity.created(uri).body(tarefa);
@@ -34,13 +34,13 @@ public class TarefaController {
 
   @DeleteMapping(value = "{id}")
   public ResponseEntity<Void> excluirTarefa(@PathVariable("id") Integer id) {
-    service.delete(id);
+    service.excluirTarefa(id);
     return ResponseEntity.noContent().build();
   }
 
   @PutMapping(value = "{id}")
   public ResponseEntity<Tarefa> atualizarTarefa(@PathVariable("id") Integer id, @RequestBody Tarefa tarefa) {
-    tarefa = service.update(id, tarefa);
+    tarefa = service.atualizarTarefa(id, tarefa);
     return ResponseEntity.ok().body(tarefa);
   }
 }

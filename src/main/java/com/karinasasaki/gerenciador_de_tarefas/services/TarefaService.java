@@ -13,25 +13,25 @@ public class TarefaService {
   @Autowired
   private TarefaRepository repository;
 
-  public List<Tarefa> findAll() {
+  public List<Tarefa> listarTarefas() {
     return repository.findAll();
   }
 
-  public Tarefa insert(Tarefa tarefa) {
+  public Tarefa criarTarefa(Tarefa tarefa) {
     return repository.save(tarefa);
   }
 
-  public void delete(Integer id) {
+  public void excluirTarefa(Integer id) {
     repository.deleteById(id);
   }
 
-  public Tarefa update(Integer id, Tarefa tarefaAtualizada) {
+  public Tarefa atualizarTarefa(Integer id, Tarefa tarefaAtualizada) {
     Tarefa tarefa = repository.getReferenceById(id);
-    atualizarTarefa(tarefa, tarefaAtualizada);
+    atualizarCamposTarefa(tarefa, tarefaAtualizada);
     return repository.save(tarefa);
   }
 
-  private void atualizarTarefa(Tarefa tarefa, Tarefa tarefaAtualizada) {
+  private void atualizarCamposTarefa(Tarefa tarefa, Tarefa tarefaAtualizada) {
     tarefa.setTitulo(tarefaAtualizada.getTitulo());
     tarefa.setDescricao(tarefaAtualizada.getDescricao());
     tarefa.setStatus(tarefaAtualizada.getStatus());

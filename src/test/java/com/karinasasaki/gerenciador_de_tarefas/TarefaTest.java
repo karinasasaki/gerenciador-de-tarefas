@@ -17,7 +17,7 @@ public class TarefaTest {
   TarefaRepository repository;
 
   @Test
-  public void deveAdicionarTarefa() {
+  public void deveCriarTarefa() {
     Tarefa tarefa = new Tarefa();
     tarefa.setTitulo("Avaliar os PRs pendentes");
     tarefa = repository.save(tarefa);
