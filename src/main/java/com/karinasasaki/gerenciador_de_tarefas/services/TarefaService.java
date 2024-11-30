@@ -6,9 +6,11 @@ import com.karinasasaki.gerenciador_de_tarefas.entities.Tarefa;
 import com.karinasasaki.gerenciador_de_tarefas.entities.enums.StatusTarefa;
 import com.karinasasaki.gerenciador_de_tarefas.repositories.TarefaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,8 +19,9 @@ public class TarefaService {
   @Autowired
   private TarefaRepository repository;
 
-  public List<Tarefa> listarTarefas() {
-    return repository.findAll();
+  public Page<Tarefa> listarTarefas(Integer pagina, Integer tamanhoPagina) {
+    Pageable pageable = PageRequest.of(pagina, tamanhoPagina);
+    return repository.findAll(pageable);
   }
 
   public Tarefa criarTarefa(CriarTarefaDTO dto) {

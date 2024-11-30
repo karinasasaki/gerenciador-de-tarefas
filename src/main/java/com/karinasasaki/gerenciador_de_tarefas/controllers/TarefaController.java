@@ -6,12 +6,12 @@ import com.karinasasaki.gerenciador_de_tarefas.entities.Tarefa;
 import com.karinasasaki.gerenciador_de_tarefas.services.TarefaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "tarefas")
@@ -21,8 +21,10 @@ public class TarefaController {
   private TarefaService service;
 
   @GetMapping
-  public ResponseEntity<List<Tarefa>> listarTarefas() {
-    List<Tarefa> tarefas = service.listarTarefas();
+  public ResponseEntity<Page<Tarefa>> listarTarefas(
+      @RequestParam(defaultValue = "0") Integer pagina,
+      @RequestParam(defaultValue = "10") Integer tamanhoPagina) {
+    Page<Tarefa> tarefas = service.listarTarefas(pagina, tamanhoPagina);
     return ResponseEntity.ok().body(tarefas);
   }
 
