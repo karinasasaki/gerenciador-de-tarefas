@@ -24,6 +24,6 @@ public enum StatusTarefa {
         return status;
       }
     }
-    throw new IllegalArgumentException("Status inválido.");
+    throw new IllegalArgumentException("Status inválido");
   }
 }

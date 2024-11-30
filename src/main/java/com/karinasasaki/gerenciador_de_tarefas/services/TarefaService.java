@@ -1,11 +1,15 @@
 package com.karinasasaki.gerenciador_de_tarefas.services;
 
+import com.karinasasaki.gerenciador_de_tarefas.controllers.dtos.AtualizarTarefaDTO;
+import com.karinasasaki.gerenciador_de_tarefas.controllers.dtos.CriarTarefaDTO;
 import com.karinasasaki.gerenciador_de_tarefas.entities.Tarefa;
+import com.karinasasaki.gerenciador_de_tarefas.entities.enums.StatusTarefa;
 import com.karinasasaki.gerenciador_de_tarefas.repositories.TarefaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TarefaService {
@@ -17,7 +21,8 @@ public class TarefaService {
     return repository.findAll();
   }
 
-  public Tarefa criarTarefa(Tarefa tarefa) {
+  public Tarefa criarTarefa(CriarTarefaDTO dto) {
+    Tarefa tarefa = dto.mapParaTarefaEntidade();
     return repository.save(tarefa);
   }
 
@@ -25,16 +30,22 @@ public class TarefaService {
     repository.deleteById(id);
   }
 
-  public Tarefa atualizarTarefa(Integer id, Tarefa tarefaAtualizada) {
-    Tarefa tarefa = repository.getReferenceById(id);
-    atualizarCamposTarefa(tarefa, tarefaAtualizada);
-    return repository.save(tarefa);
-  }
+  public Tarefa atualizarTarefa(Integer id, AtualizarTarefaDTO dto) {
+    Optional<Tarefa> tarefaOptional = repository.findById(id);
 
-  private void atualizarCamposTarefa(Tarefa tarefa, Tarefa tarefaAtualizada) {
-    tarefa.setTitulo(tarefaAtualizada.getTitulo());
-    tarefa.setDescricao(tarefaAtualizada.getDescricao());
-    tarefa.setStatus(tarefaAtualizada.getStatus());
-    tarefa.setDataConclusao(tarefaAtualizada.getDataConclusao());
+    if (tarefaOptional.isEmpty()) {
+      throw new IllegalArgumentException("Tarefa não encontrada");
+    }
+
+    Tarefa tarefa = tarefaOptional.get();
+    if (dto.titulo() != null) {
+      tarefa.setTitulo(dto.titulo());
+    }
+    tarefa.setDescricao(dto.descricao());
+    if (dto.status() != null) {
+      tarefa.setStatus(StatusTarefa.getStatus(dto.status()));
+    }
+    tarefa.setDataConclusao(dto.dataConclusao());
+    return repository.save(tarefa);
   }
 }
