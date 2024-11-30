@@ -4,7 +4,10 @@ import com.karinasasaki.gerenciador_de_tarefas.controllers.dtos.AtualizarTarefaD
 import com.karinasasaki.gerenciador_de_tarefas.controllers.dtos.CriarTarefaDTO;
 import com.karinasasaki.gerenciador_de_tarefas.entities.Tarefa;
 import com.karinasasaki.gerenciador_de_tarefas.services.TarefaService;
-import jakarta.validation.Valid;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +18,17 @@ import java.net.URI;
 
 @RestController
 @RequestMapping(value = "tarefas")
+@Tag(name = "Tarefas")
 public class TarefaController {
 
   @Autowired
   private TarefaService service;
 
   @GetMapping
+  @Operation(summary = "Listar", description = "Endpoint para listar as tarefas paginadas.")
+  @ApiResponses({
+      @ApiResponse(responseCode = "200", description = "Listado com sucesso.")
+  })
   public ResponseEntity<Page<Tarefa>> listarTarefas(
       @RequestParam(defaultValue = "0") Integer pagina,
       @RequestParam(defaultValue = "10") Integer tamanhoPagina) {
@@ -29,7 +37,12 @@ public class TarefaController {
   }
 
   @PostMapping
-  public ResponseEntity<Tarefa> criarTarefa(@Valid @RequestBody CriarTarefaDTO dto) {
+  @Operation(summary = "Criar", description = "Endpoint para criar uma nova tarefa.")
+  @ApiResponses({
+      @ApiResponse(responseCode = "201", description = "Cadastrado com sucesso."),
+      @ApiResponse(responseCode = "400", description = "Erro de validação.")
+  })
+  public ResponseEntity<Tarefa> criarTarefa(@RequestBody CriarTarefaDTO dto) {
     Tarefa tarefa = service.criarTarefa(dto);
     URI uri = ServletUriComponentsBuilder
         .fromCurrentRequest()
@@ -40,12 +53,22 @@ public class TarefaController {
   }
 
   @DeleteMapping(value = "{id}")
+  @Operation(summary = "Excluir", description = "Endpoint para excluir uma tarefa.")
+  @ApiResponses({
+      @ApiResponse(responseCode = "204", description = "Excluído com sucesso.")
+  })
   public ResponseEntity<Void> excluirTarefa(@PathVariable Integer id) {
     service.excluirTarefa(id);
     return ResponseEntity.noContent().build();
   }
 
   @PutMapping(value = "{id}")
+  @Operation(summary = "Atualizar", description = "Endpoint para atualizar uma tarefa.")
+  @ApiResponses({
+      @ApiResponse(responseCode = "200", description = "Atualizado com sucesso."),
+      @ApiResponse(responseCode = "400", description = "Erro de validação."),
+      @ApiResponse(responseCode = "404", description = "Não encontrado.")
+  })
   public ResponseEntity<Tarefa> atualizarTarefa(@PathVariable Integer id, @RequestBody AtualizarTarefaDTO dto) {
     Tarefa tarefa = service.atualizarTarefa(id, dto);
     return ResponseEntity.ok().body(tarefa);
