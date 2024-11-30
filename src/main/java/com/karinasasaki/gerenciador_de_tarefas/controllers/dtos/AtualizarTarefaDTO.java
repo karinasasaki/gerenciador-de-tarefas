@@ -5,7 +5,7 @@ import java.util.Calendar;
 public record AtualizarTarefaDTO(
     String titulo,
     String descricao,
-    Integer status,
+    String status,
     Calendar dataConclusao
 ) {
 }

@@ -25,17 +25,17 @@ public class Tarefa implements Serializable {
   @Setter(AccessLevel.NONE)
   private Integer id;
 
-  @NotBlank(message = "O campo título deve ser informado")
+  @NotBlank(message = "O campo titulo deve ser informado")
   @Size(max = 200, message = "O tamanho do campo titulo excedeu 200 caracteres")
   @Column(length = 200, nullable = false)
   private String titulo;
 
-  @Size(max = 1500, message = "O tamanho do campo titulo excedeu 1500 caracteres")
+  @Size(max = 1500, message = "O tamanho do campo descricao excedeu 1500 caracteres")
   @Column(length = 1500)
   private String descricao;
 
   @Column(nullable = false)
-  private Integer status = 0;
+  private String status = "PENDENTE";
 
   @Column(nullable = false)
   private final Calendar dataCriacao = Calendar.getInstance();
@@ -45,10 +45,6 @@ public class Tarefa implements Serializable {
   public Tarefa(String titulo, String descricao) {
     this.titulo = titulo;
     this.descricao = descricao;
-  }
-
-  public StatusTarefa getStatus() {
-    return StatusTarefa.getStatus(status);
   }
 
   public void setStatus(StatusTarefa status) {

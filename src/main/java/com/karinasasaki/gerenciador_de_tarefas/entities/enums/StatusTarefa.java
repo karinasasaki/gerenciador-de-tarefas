@@ -1,24 +1,23 @@
 package com.karinasasaki.gerenciador_de_tarefas.entities.enums;
 
+import lombok.Getter;
+
 import java.util.Objects;
 
+@Getter
 public enum StatusTarefa {
 
-  PENDENTE(0),
-  EM_ANDAMENTO(1),
-  CONCLUIDA(2);
+  PENDENTE("PENDENTE"),
+  EM_ANDAMENTO("EM_ANDAMENTO"),
+  CONCLUIDA("CONCLUIDA");
 
-  private int code;
+  private final String code;
 
-  StatusTarefa(int code) {
+  StatusTarefa(String code) {
     this.code = code;
   }
 
-  public int getCode() {
-    return code;
-  }
-
-  public static StatusTarefa getStatus(int code) {
+  public static StatusTarefa getStatus(String code) {
     for (StatusTarefa status: StatusTarefa.values()) {
       if (Objects.equals(status.getCode(), code)) {
         return status;
