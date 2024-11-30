@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ import java.net.URI;
 @RestController
 @RequestMapping(value = "tarefas")
 @Tag(name = "Tarefas")
+@Slf4j
 public class TarefaController {
 
   @Autowired
@@ -32,6 +34,8 @@ public class TarefaController {
   public ResponseEntity<Page<Tarefa>> listarTarefas(
       @RequestParam(defaultValue = "0") Integer pagina,
       @RequestParam(defaultValue = "10") Integer tamanhoPagina) {
+    log.info("Listando tarefas");
+
     Page<Tarefa> tarefas = service.listarTarefas(pagina, tamanhoPagina);
     return ResponseEntity.ok().body(tarefas);
   }
@@ -43,6 +47,8 @@ public class TarefaController {
       @ApiResponse(responseCode = "400", description = "Erro de validação.")
   })
   public ResponseEntity<Tarefa> criarTarefa(@RequestBody CriarTarefaDTO dto) {
+    log.info("Criando tarefa");
+
     Tarefa tarefa = service.criarTarefa(dto);
     URI uri = ServletUriComponentsBuilder
         .fromCurrentRequest()
@@ -58,6 +64,8 @@ public class TarefaController {
       @ApiResponse(responseCode = "204", description = "Excluído com sucesso.")
   })
   public ResponseEntity<Void> excluirTarefa(@PathVariable Integer id) {
+    log.info("Excluindo tarefa id: {}", id);
+
     service.excluirTarefa(id);
     return ResponseEntity.noContent().build();
   }
@@ -70,6 +78,8 @@ public class TarefaController {
       @ApiResponse(responseCode = "404", description = "Não encontrado.")
   })
   public ResponseEntity<Tarefa> atualizarTarefa(@PathVariable Integer id, @RequestBody AtualizarTarefaDTO dto) {
+    log.info("Atualizando tarefa id: {}", id);
+
     Tarefa tarefa = service.atualizarTarefa(id, dto);
     return ResponseEntity.ok().body(tarefa);
   }
