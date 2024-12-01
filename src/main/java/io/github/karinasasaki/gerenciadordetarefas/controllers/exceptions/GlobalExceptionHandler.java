@@ -20,7 +20,7 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(MethodArgumentNotValidException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   public ErroResposta handleMethodArgumentNotValidException(MethodArgumentNotValidException e, HttpServletRequest request) {
-    log.error("MethodArgumentNotValidException: {}", e.getMessage());
+    log.error("MethodArgumentNotValidException: {}", e);
 
     HttpStatus status = HttpStatus.BAD_REQUEST;
     return new ErroResposta(status.value(), e.getFieldError().getDefaultMessage(), request.getRequestURI());
@@ -29,7 +29,7 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(ConstraintViolationException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   public ErroResposta handleConstraintViolationException(ConstraintViolationException e, HttpServletRequest request) {
-    log.error("ConstraintViolationException: {}", e.getMessage());
+    log.error("ConstraintViolationException: {}", e);
 
     HttpStatus status = HttpStatus.BAD_REQUEST;
     return new ErroResposta(status.value(), e.getConstraintViolations().stream().map(ConstraintViolation::getMessage).toList().get(0), request.getRequestURI());
@@ -38,7 +38,7 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(IllegalArgumentException.class)
   @ResponseStatus(HttpStatus.NOT_FOUND)
   public ErroResposta handleIllegalArgumentException(IllegalArgumentException e, HttpServletRequest request) {
-    log.error("IllegalArgumentException: {}", e.getMessage());
+    log.error("IllegalArgumentException: {}", e);
 
     HttpStatus status = HttpStatus.NOT_FOUND;
     return new ErroResposta(status.value(), e.getMessage(), request.getRequestURI());
@@ -47,7 +47,7 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(InvalidFormatException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   public ErroResposta handleInvalidFormatException(InvalidFormatException e, HttpServletRequest request) {
-    log.error("InvalidFormatException: {}", e.getMessage());
+    log.error("InvalidFormatException: {}", e);
 
     HttpStatus status = HttpStatus.BAD_REQUEST;
     String campo = e.getPathReference().split("\"")[1];
@@ -58,7 +58,7 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(ValidationException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   public ErroResposta handleValidationException(ValidationException e, HttpServletRequest request) {
-    log.error("ValidationException: {}", e.getMessage());
+    log.error("ValidationException: {}", e);
 
     HttpStatus status = HttpStatus.BAD_REQUEST;
     return new ErroResposta(status.value(), e.getMessage(), request.getRequestURI());
@@ -67,7 +67,7 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(HttpMessageNotReadableException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   public ErroResposta handleHttpMessageNotReadableException(HttpMessageNotReadableException e, HttpServletRequest request) {
-    log.error("HttpMessageNotReadableException: {}", e.getMessage());
+    log.error("HttpMessageNotReadableException: {}", e);
     String mensagem = "Campo com formato inválido";
 
     HttpStatus status = HttpStatus.BAD_REQUEST;
@@ -77,7 +77,7 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(RuntimeException.class)
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   public ErroResposta handleErro500(RuntimeException e, HttpServletRequest request) {
-    log.error("Erro 500: {}", e.getMessage());
+    log.error("Erro 500: {}", e);
 
     HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
     String mensagem = "Ocorreu um erro inesperado.";

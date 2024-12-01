@@ -6,6 +6,7 @@ import io.github.karinasasaki.gerenciadordetarefas.entities.Tarefa;
 import io.github.karinasasaki.gerenciadordetarefas.entities.enums.StatusTarefa;
 import io.github.karinasasaki.gerenciadordetarefas.repositories.TarefaRepository;
 import jakarta.validation.ValidationException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.util.Optional;
 
+
+@Slf4j
 @Service
 public class TarefaService {
 
@@ -29,10 +32,12 @@ public class TarefaService {
   }
 
   public Tarefa criarTarefa(CriarTarefaDTO dto) {
+    log.debug("Dados da tarefa inseridos: {}", dto);
     Tarefa tarefa = dto.mapParaTarefaEntidade();
 
     anularDescricaoEmBranco(tarefa);
     dataConclusaoDeveSerMaiorQueDataCriacao(tarefa);
+
     return repository.save(tarefa);
   }
 
@@ -41,6 +46,7 @@ public class TarefaService {
   }
 
   public Tarefa atualizarTarefa(Integer id, AtualizarTarefaDTO dto) {
+    log.debug("Dados da tarefa inseridos: {}", dto);
     Optional<Tarefa> tarefaOptional = repository.findById(id);
 
     if (tarefaOptional.isEmpty()) {

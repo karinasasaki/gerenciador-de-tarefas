@@ -38,8 +38,9 @@ public class TarefaController {
       @RequestParam(defaultValue = "0") Integer pagina,
       @RequestParam(defaultValue = "10") Integer tamanhoPagina) {
     log.info("Listando tarefas");
-
     Page<Tarefa> tarefas = service.listarTarefas(pagina, tamanhoPagina);
+    log.info("Tarefas listadas com sucesso: {}", tarefas);
+
     return ResponseEntity.ok().body(tarefas);
   }
 
@@ -51,8 +52,9 @@ public class TarefaController {
   })
   public ResponseEntity<Tarefa> criarTarefa(@RequestBody CriarTarefaDTO dto) {
     log.info("Criando tarefa");
-
     Tarefa tarefa = service.criarTarefa(dto);
+    log.info("Tarefa criada com sucesso: {}", tarefa);
+
     URI uri = ServletUriComponentsBuilder
         .fromCurrentRequest()
         .path("{id}")
@@ -68,8 +70,8 @@ public class TarefaController {
   })
   public ResponseEntity<Void> excluirTarefa(@PathVariable Integer id) {
     log.info("Excluindo tarefa id: {}", id);
-
     service.excluirTarefa(id);
+    log.info("Tarefa excluída com sucesso");
     return ResponseEntity.noContent().build();
   }
 
@@ -82,8 +84,8 @@ public class TarefaController {
   })
   public ResponseEntity<Tarefa> atualizarTarefa(@PathVariable Integer id, @Valid @RequestBody AtualizarTarefaDTO dto) {
     log.info("Atualizando tarefa id: {}", id);
-
     Tarefa tarefa = service.atualizarTarefa(id, dto);
+    log.info("Tarefa atualizada com sucesso: {}", tarefa);
     return ResponseEntity.ok().body(tarefa);
   }
 }
