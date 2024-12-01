@@ -7,6 +7,7 @@ import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.ValidationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -61,6 +62,16 @@ public class GlobalExceptionHandler {
 
     HttpStatus status = HttpStatus.BAD_REQUEST;
     return new ErroResposta(status.value(), e.getMessage(), request.getRequestURI());
+  }
+
+  @ExceptionHandler(HttpMessageNotReadableException.class)
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  public ErroResposta handleHttpMessageNotReadableException(HttpMessageNotReadableException e, HttpServletRequest request) {
+    log.error("HttpMessageNotReadableException: {}", e.getMessage());
+    String mensagem = "Campo com formato inválido";
+
+    HttpStatus status = HttpStatus.BAD_REQUEST;
+    return new ErroResposta(status.value(), mensagem, request.getRequestURI());
   }
 
   @ExceptionHandler(RuntimeException.class)

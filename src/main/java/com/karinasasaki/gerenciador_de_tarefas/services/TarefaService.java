@@ -60,7 +60,7 @@ public class TarefaService {
   }
 
   private void anularDescricaoEmBranco(Tarefa tarefa) {
-    if (tarefa.getDescricao().isBlank()) {
+    if (tarefa.getDescricao() != null && tarefa.getDescricao().isBlank()) {
       tarefa.setDescricao(null);
     }
   }

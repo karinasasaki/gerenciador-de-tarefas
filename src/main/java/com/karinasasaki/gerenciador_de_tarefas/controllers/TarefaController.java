@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -77,7 +78,7 @@ public class TarefaController {
       @ApiResponse(responseCode = "400", description = "Erro de validação."),
       @ApiResponse(responseCode = "404", description = "Não encontrado.")
   })
-  public ResponseEntity<Tarefa> atualizarTarefa(@PathVariable Integer id, @RequestBody AtualizarTarefaDTO dto) {
+  public ResponseEntity<Tarefa> atualizarTarefa(@PathVariable Integer id, @Valid @RequestBody AtualizarTarefaDTO dto) {
     log.info("Atualizando tarefa id: {}", id);
 
     Tarefa tarefa = service.atualizarTarefa(id, dto);
