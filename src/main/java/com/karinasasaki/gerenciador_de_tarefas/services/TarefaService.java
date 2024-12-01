@@ -26,6 +26,8 @@ public class TarefaService {
 
   public Tarefa criarTarefa(CriarTarefaDTO dto) {
     Tarefa tarefa = dto.mapParaTarefaEntidade();
+
+    anularDescricaoEmBranco(tarefa);
     return repository.save(tarefa);
   }
 
@@ -49,6 +51,14 @@ public class TarefaService {
       tarefa.setStatus(StatusTarefa.getStatus(dto.status()));
     }
     tarefa.setDataConclusao(dto.dataConclusao());
+
+    anularDescricaoEmBranco(tarefa);
     return repository.save(tarefa);
+  }
+
+  private void anularDescricaoEmBranco(Tarefa tarefa) {
+    if (tarefa.getDescricao().isBlank()) {
+      tarefa.setDescricao(null);
+    }
   }
 }
