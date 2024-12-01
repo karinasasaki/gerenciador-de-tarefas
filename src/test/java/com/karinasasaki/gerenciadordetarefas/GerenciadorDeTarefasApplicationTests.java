@@ -1,4 +1,4 @@
-package com.karinasasaki.gerenciador_de_tarefas;
+package com.karinasasaki.gerenciadordetarefas;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

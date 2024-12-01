@@ -1,6 +1,6 @@
-package com.karinasasaki.gerenciador_de_tarefas.entities;
+package com.karinasasaki.gerenciadordetarefas.entities;
 
-import com.karinasasaki.gerenciador_de_tarefas.entities.enums.StatusTarefa;
+import com.karinasasaki.gerenciadordetarefas.entities.enums.StatusTarefa;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

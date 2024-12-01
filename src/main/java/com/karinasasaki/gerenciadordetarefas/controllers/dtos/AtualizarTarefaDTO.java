@@ -1,4 +1,4 @@
-package com.karinasasaki.gerenciador_de_tarefas.controllers.dtos;
+package com.karinasasaki.gerenciadordetarefas.controllers.dtos;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;

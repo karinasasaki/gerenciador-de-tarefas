@@ -1,4 +1,4 @@
-package com.karinasasaki.gerenciador_de_tarefas;
+package com.karinasasaki.gerenciadordetarefas;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,5 +9,4 @@ public class GerenciadorDeTarefasApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(GerenciadorDeTarefasApplication.class, args);
 	}
-
 }

@@ -1,9 +1,9 @@
-package com.karinasasaki.gerenciador_de_tarefas.services;
+package com.karinasasaki.gerenciadordetarefas.services;
 
-import com.karinasasaki.gerenciador_de_tarefas.controllers.dtos.AtualizarTarefaDTO;
-import com.karinasasaki.gerenciador_de_tarefas.controllers.dtos.CriarTarefaDTO;
-import com.karinasasaki.gerenciador_de_tarefas.entities.Tarefa;
-import com.karinasasaki.gerenciador_de_tarefas.repositories.TarefaRepository;
+import com.karinasasaki.gerenciadordetarefas.controllers.dtos.AtualizarTarefaDTO;
+import com.karinasasaki.gerenciadordetarefas.controllers.dtos.CriarTarefaDTO;
+import com.karinasasaki.gerenciadordetarefas.entities.Tarefa;
+import com.karinasasaki.gerenciadordetarefas.repositories.TarefaRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

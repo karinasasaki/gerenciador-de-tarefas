@@ -1,7 +1,7 @@
-package com.karinasasaki.gerenciador_de_tarefas.config;
+package com.karinasasaki.gerenciadordetarefas.config;
 
-import com.karinasasaki.gerenciador_de_tarefas.entities.Tarefa;
-import com.karinasasaki.gerenciador_de_tarefas.repositories.TarefaRepository;
+import com.karinasasaki.gerenciadordetarefas.entities.Tarefa;
+import com.karinasasaki.gerenciadordetarefas.repositories.TarefaRepository;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;

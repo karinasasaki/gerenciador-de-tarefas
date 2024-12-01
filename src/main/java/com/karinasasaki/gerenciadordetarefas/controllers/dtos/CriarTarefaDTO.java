@@ -1,7 +1,7 @@
-package com.karinasasaki.gerenciador_de_tarefas.controllers.dtos;
+package com.karinasasaki.gerenciadordetarefas.controllers.dtos;
 
-import com.karinasasaki.gerenciador_de_tarefas.entities.Tarefa;
-import com.karinasasaki.gerenciador_de_tarefas.entities.enums.StatusTarefa;
+import com.karinasasaki.gerenciadordetarefas.entities.Tarefa;
+import com.karinasasaki.gerenciadordetarefas.entities.enums.StatusTarefa;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 

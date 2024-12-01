@@ -10,9 +10,9 @@
 	</parent>
 
 	<groupId>com.karinasasaki</groupId>
-	<artifactId>gerenciador-de-tarefas</artifactId>
+	<artifactId>gerenciadordetarefas</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>gerenciador-de-tarefas</name>
+	<name>gerenciadordetarefas</name>
 	<description>API para Gerenciamento de Tarefas</description>
 	<url/>
 

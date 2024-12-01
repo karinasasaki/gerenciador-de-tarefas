@@ -1,6 +1,6 @@
-package com.karinasasaki.gerenciador_de_tarefas.repositories;
+package com.karinasasaki.gerenciadordetarefas.repositories;
 
-import com.karinasasaki.gerenciador_de_tarefas.entities.Tarefa;
+import com.karinasasaki.gerenciadordetarefas.entities.Tarefa;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TarefaRepository extends JpaRepository<Tarefa, Integer> {

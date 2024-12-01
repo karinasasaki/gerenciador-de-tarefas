@@ -1,4 +1,4 @@
-package com.karinasasaki.gerenciador_de_tarefas.controllers.exceptions;
+package com.karinasasaki.gerenciadordetarefas.controllers.exceptions;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import jakarta.servlet.http.HttpServletRequest;
