@@ -10,7 +10,6 @@ import java.util.Calendar;
 @Schema(name = "Tarefa")
 @Builder
 public record AtualizarTarefaDTO(
-
     @NotBlank(message = "O campo titulo deve ser informado")
     @Size(max = 200, message = "O tamanho do campo titulo excedeu 200 caracteres")
     String titulo,

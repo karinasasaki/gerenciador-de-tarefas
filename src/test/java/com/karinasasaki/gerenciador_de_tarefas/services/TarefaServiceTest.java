@@ -29,7 +29,7 @@ class TarefaServiceTest {
   private TarefaService service;
 
   @Test
-  void TarefaService_ListarTarefas_DeveRetornarListaVazia() {
+  void TarefaService_ListarTarefas_DeveRetornarListaVazia_QuandoNaoTiverValor() {
     Page<Tarefa> tarefas = new PageImpl<>(new ArrayList<>());
 
     Mockito.when(repository.findAll(Mockito.any(Pageable.class))).thenReturn(tarefas);
@@ -41,7 +41,7 @@ class TarefaServiceTest {
   }
 
   @Test
-  void TarefaService_ListarTarefas_DeveRetornarDuasTarefas() {
+  void TarefaService_ListarTarefas_DeveRetornarDuasTarefas_QuandoTiverDoisValores() {
     Tarefa tarefa1 = Tarefa.builder().build(),
         tarefa2 = Tarefa.builder().build();
     List<Tarefa> listaTarefas = new ArrayList<>(List.of(tarefa1, tarefa2));
@@ -85,6 +85,7 @@ class TarefaServiceTest {
         .descricao(null)
         .status("EM_ANDAMENTO")
         .dataConclusao(null).build();
+
     Tarefa tarefaDesatualizada = Tarefa.builder()
         .id(1)
         .titulo("Avaliar PR")
