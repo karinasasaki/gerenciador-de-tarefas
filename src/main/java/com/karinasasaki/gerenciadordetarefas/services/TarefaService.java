@@ -45,7 +45,7 @@ public class TarefaService {
     }
 
     Tarefa tarefa = tarefaOptional.get();
-    if (dto.titulo() != null) {
+    if (dto.titulo() != null && !dto.titulo().isBlank()) {
       tarefa.setTitulo(dto.titulo());
     }
     tarefa.setDescricao(dto.descricao());
