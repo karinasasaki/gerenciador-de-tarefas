@@ -5,14 +5,12 @@ import io.github.karinasasaki.gerenciadordetarefas.controllers.dtos.CriarTarefaD
 import io.github.karinasasaki.gerenciadordetarefas.entities.Tarefa;
 import io.github.karinasasaki.gerenciadordetarefas.entities.enums.StatusTarefa;
 import io.github.karinasasaki.gerenciadordetarefas.repositories.TarefaRepository;
-import jakarta.validation.ValidationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.util.Optional;
 
 
@@ -33,10 +31,10 @@ public class TarefaService {
 
   public Tarefa criarTarefa(CriarTarefaDTO dto) {
     log.debug("Dados da tarefa inseridos: {}", dto);
-    Tarefa tarefa = dto.mapParaTarefaEntidade();
 
-    anularDescricaoEmBranco(tarefa);
-    dataConclusaoDeveSerMaiorQueDataCriacao(tarefa);
+    Tarefa tarefa = dto.mapParaTarefaEntidade();
+    tarefa.anularDescricaoEmBranco();
+    tarefa.dataConclusaoDeveSerMaiorQueDataCriacao();
 
     return repository.save(tarefa);
   }
@@ -47,6 +45,7 @@ public class TarefaService {
 
   public Tarefa atualizarTarefa(Integer id, AtualizarTarefaDTO dto) {
     log.debug("Dados da tarefa inseridos: {}", dto);
+
     Optional<Tarefa> tarefaOptional = repository.findById(id);
 
     if (tarefaOptional.isEmpty()) {
@@ -54,32 +53,22 @@ public class TarefaService {
     }
 
     Tarefa tarefa = tarefaOptional.get();
+
     if (dto.titulo() != null && !dto.titulo().isBlank()) {
       tarefa.setTitulo(dto.titulo());
     }
+
     tarefa.setDescricao(dto.descricao());
+
     if (dto.status() != null) {
       tarefa.setStatus(StatusTarefa.getStatus(dto.status()));
     }
+    
     tarefa.setDataConclusao(dto.dataConclusao());
 
-    anularDescricaoEmBranco(tarefa);
-    dataConclusaoDeveSerMaiorQueDataCriacao(tarefa);
+    tarefa.anularDescricaoEmBranco();
+    tarefa.dataConclusaoDeveSerMaiorQueDataCriacao();
+
     return repository.save(tarefa);
-  }
-
-  private void anularDescricaoEmBranco(Tarefa tarefa) {
-    if (tarefa.getDescricao() != null && tarefa.getDescricao().isBlank()) {
-      tarefa.setDescricao(null);
-    }
-  }
-
-  private void dataConclusaoDeveSerMaiorQueDataCriacao(Tarefa tarefa) {
-    if (tarefa.getDataConclusao() != null) {
-      Instant dataConclusao = tarefa.getDataConclusao().toInstant();
-      if (dataConclusao.isBefore(tarefa.getDataCriacao())) {
-        throw new ValidationException("A dataConclusao deve ser posterior a dataCriacao");
-      }
-    }
   }
 }

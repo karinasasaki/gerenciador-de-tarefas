@@ -3,6 +3,7 @@ package io.github.karinasasaki.gerenciadordetarefas.entities;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.github.karinasasaki.gerenciadordetarefas.entities.enums.StatusTarefa;
 import jakarta.persistence.*;
+import jakarta.validation.ValidationException;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -51,11 +52,29 @@ public class Tarefa implements Serializable {
     this.titulo = titulo;
     this.descricao = descricao;
     this.status = "PENDENTE";
+
+    anularDescricaoEmBranco();
+    dataConclusaoDeveSerMaiorQueDataCriacao();
   }
 
   public void setStatus(StatusTarefa status) {
     if (status != null) {
       this.status = status.getCode();
+    }
+  }
+
+  public void anularDescricaoEmBranco() {
+    if (this.getDescricao() != null && this.getDescricao().isBlank()) {
+      this.setDescricao(null);
+    }
+  }
+
+  public void dataConclusaoDeveSerMaiorQueDataCriacao() {
+    if (this.getDataConclusao() != null) {
+      Instant dataConclusao = this.getDataConclusao().toInstant();
+      if (dataConclusao.isBefore(this.getDataCriacao())) {
+        throw new ValidationException("A dataConclusao deve ser posterior a dataCriacao");
+      }
     }
   }
 }
