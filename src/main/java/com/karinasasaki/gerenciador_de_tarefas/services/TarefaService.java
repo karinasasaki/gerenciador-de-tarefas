@@ -5,6 +5,7 @@ import com.karinasasaki.gerenciador_de_tarefas.controllers.dtos.CriarTarefaDTO;
 import com.karinasasaki.gerenciador_de_tarefas.entities.Tarefa;
 import com.karinasasaki.gerenciador_de_tarefas.entities.enums.StatusTarefa;
 import com.karinasasaki.gerenciador_de_tarefas.repositories.TarefaRepository;
+import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,6 +29,7 @@ public class TarefaService {
     Tarefa tarefa = dto.mapParaTarefaEntidade();
 
     anularDescricaoEmBranco(tarefa);
+    dataConclusaoDeveSerMaiorQueDataCriacao(tarefa);
     return repository.save(tarefa);
   }
 
@@ -53,12 +55,19 @@ public class TarefaService {
     tarefa.setDataConclusao(dto.dataConclusao());
 
     anularDescricaoEmBranco(tarefa);
+    dataConclusaoDeveSerMaiorQueDataCriacao(tarefa);
     return repository.save(tarefa);
   }
 
   private void anularDescricaoEmBranco(Tarefa tarefa) {
     if (tarefa.getDescricao().isBlank()) {
       tarefa.setDescricao(null);
+    }
+  }
+
+  private void dataConclusaoDeveSerMaiorQueDataCriacao(Tarefa tarefa) {
+    if (tarefa.getDataConclusao() != null && tarefa.getDataConclusao().before(tarefa.getDataCriacao())) {
+      throw new ValidationException("A dataConclusao deve ser posterior a dataCriacao");
     }
   }
 }

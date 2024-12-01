@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.ValidationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -51,6 +52,15 @@ public class GlobalExceptionHandler {
     String campo = e.getPathReference().split("\"")[1];
     String mensagem = "O campo " + campo + " está em um formato inválido";
     return new ErroResposta(status.value(), mensagem, request.getRequestURI());
+  }
+
+  @ExceptionHandler(ValidationException.class)
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  public ErroResposta handleValidationException(ValidationException e, HttpServletRequest request) {
+    log.error("ValidationException: {}", e.getMessage());
+
+    HttpStatus status = HttpStatus.BAD_REQUEST;
+    return new ErroResposta(status.value(), e.getMessage(), request.getRequestURI());
   }
 
   @ExceptionHandler(RuntimeException.class)
