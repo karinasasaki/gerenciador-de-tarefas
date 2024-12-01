@@ -5,7 +5,6 @@ import io.github.karinasasaki.gerenciadordetarefas.repositories.TarefaRepository
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -26,8 +25,11 @@ import org.springframework.context.annotation.Profile;
 )
 public class DevelopConfig implements CommandLineRunner {
 
-  @Autowired
-  private TarefaRepository repository;
+  private final TarefaRepository repository;
+
+  DevelopConfig(TarefaRepository repository) {
+    this.repository = repository;
+  }
 
   @Override
   public void run(String... args) {

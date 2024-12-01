@@ -6,7 +6,6 @@ import io.github.karinasasaki.gerenciadordetarefas.entities.Tarefa;
 import io.github.karinasasaki.gerenciadordetarefas.entities.enums.StatusTarefa;
 import io.github.karinasasaki.gerenciadordetarefas.repositories.TarefaRepository;
 import jakarta.validation.ValidationException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,8 +16,11 @@ import java.util.Optional;
 @Service
 public class TarefaService {
 
-  @Autowired
-  private TarefaRepository repository;
+  private final TarefaRepository repository;
+
+  TarefaService(TarefaRepository repository) {
+    this.repository = repository;
+  }
 
   public Page<Tarefa> listarTarefas(Integer pagina, Integer tamanhoPagina) {
     Pageable pageable = PageRequest.of(pagina, tamanhoPagina);
