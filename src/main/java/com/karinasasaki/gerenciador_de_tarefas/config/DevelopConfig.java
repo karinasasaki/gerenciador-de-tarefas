@@ -27,11 +27,11 @@ import org.springframework.context.annotation.Profile;
 public class DevelopConfig implements CommandLineRunner {
 
   @Autowired
-  private TarefaRepository tarefaRepository;
+  private TarefaRepository repository;
 
   @Override
   public void run(String... args) {
     Tarefa exemplo = new Tarefa("Refatorar o código", "Remover linhas desnecessárias");
-    tarefaRepository.save(exemplo);
+    repository.save(exemplo);
   }
 }
