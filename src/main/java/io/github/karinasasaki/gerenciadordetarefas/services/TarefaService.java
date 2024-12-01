@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.Optional;
 
 @Service
@@ -68,8 +69,11 @@ public class TarefaService {
   }
 
   private void dataConclusaoDeveSerMaiorQueDataCriacao(Tarefa tarefa) {
-    if (tarefa.getDataConclusao() != null && tarefa.getDataConclusao().before(tarefa.getDataCriacao())) {
-      throw new ValidationException("A dataConclusao deve ser posterior a dataCriacao");
+    if (tarefa.getDataConclusao() != null) {
+      Instant dataConclusao = tarefa.getDataConclusao().toInstant();
+      if (dataConclusao.isBefore(tarefa.getDataCriacao())) {
+        throw new ValidationException("A dataConclusao deve ser posterior a dataCriacao");
+      }
     }
   }
 }

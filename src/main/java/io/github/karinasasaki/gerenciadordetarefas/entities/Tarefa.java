@@ -1,5 +1,6 @@
 package io.github.karinasasaki.gerenciadordetarefas.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.github.karinasasaki.gerenciadordetarefas.entities.enums.StatusTarefa;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -8,6 +9,7 @@ import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Calendar;
 
 @Entity
@@ -38,8 +40,10 @@ public class Tarefa implements Serializable {
   @Column(nullable = false)
   private String status = "PENDENTE";
 
+  @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss", timezone = "UTC")
+  @Setter(AccessLevel.NONE)
   @Column(nullable = false, updatable = false)
-  private final Calendar dataCriacao = Calendar.getInstance();
+  private final Instant dataCriacao = Instant.now();
 
   private Calendar dataConclusao;
 
