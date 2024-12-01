@@ -4,10 +4,7 @@ import com.karinasasaki.gerenciador_de_tarefas.entities.enums.StatusTarefa;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -16,6 +13,8 @@ import java.util.Calendar;
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Tarefa implements Serializable {
   @Serial
   private static final long serialVersionUID = 1L;
@@ -34,6 +33,8 @@ public class Tarefa implements Serializable {
   @Column(length = 1500)
   private String descricao;
 
+  @NotBlank(message = "O campo status não deve ser nulo")
+  @Builder.Default
   @Column(nullable = false)
   private String status = "PENDENTE";
 
@@ -45,6 +46,7 @@ public class Tarefa implements Serializable {
   public Tarefa(String titulo, String descricao) {
     this.titulo = titulo;
     this.descricao = descricao;
+    this.status = "PENDENTE";
   }
 
   public void setStatus(StatusTarefa status) {

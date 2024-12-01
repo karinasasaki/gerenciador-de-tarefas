@@ -9,5 +9,4 @@ class GerenciadorDeTarefasApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }
