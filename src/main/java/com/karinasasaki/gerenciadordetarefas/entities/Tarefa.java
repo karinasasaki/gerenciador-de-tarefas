@@ -38,7 +38,7 @@ public class Tarefa implements Serializable {
   @Column(nullable = false)
   private String status = "PENDENTE";
 
-  @Column(nullable = false)
+  @Column(nullable = false, updatable = false)
   private final Calendar dataCriacao = Calendar.getInstance();
 
   private Calendar dataConclusao;
