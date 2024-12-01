@@ -1,9 +1,9 @@
-package com.karinasasaki.gerenciadordetarefas.controllers;
+package io.github.karinasasaki.gerenciadordetarefas.controllers;
 
-import com.karinasasaki.gerenciadordetarefas.controllers.dtos.AtualizarTarefaDTO;
-import com.karinasasaki.gerenciadordetarefas.controllers.dtos.CriarTarefaDTO;
-import com.karinasasaki.gerenciadordetarefas.entities.Tarefa;
-import com.karinasasaki.gerenciadordetarefas.services.TarefaService;
+import io.github.karinasasaki.gerenciadordetarefas.controllers.dtos.AtualizarTarefaDTO;
+import io.github.karinasasaki.gerenciadordetarefas.controllers.dtos.CriarTarefaDTO;
+import io.github.karinasasaki.gerenciadordetarefas.entities.Tarefa;
+import io.github.karinasasaki.gerenciadordetarefas.services.TarefaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

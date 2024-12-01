@@ -1,4 +1,4 @@
-package com.karinasasaki.gerenciadordetarefas.controllers.exceptions;
+package io.github.karinasasaki.gerenciadordetarefas.controllers.exceptions;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,4 +1,4 @@
-package com.karinasasaki.gerenciadordetarefas.entities.enums;
+package io.github.karinasasaki.gerenciadordetarefas.entities.enums;
 
 import lombok.Getter;
 

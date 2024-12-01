@@ -9,7 +9,7 @@
 		<relativePath/>
 	</parent>
 
-	<groupId>com.karinasasaki</groupId>
+	<groupId>io.github.karinasasaki</groupId>
 	<artifactId>gerenciadordetarefas</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>gerenciadordetarefas</name>

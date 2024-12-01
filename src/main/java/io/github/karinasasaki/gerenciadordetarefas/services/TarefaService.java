@@ -1,10 +1,10 @@
-package com.karinasasaki.gerenciadordetarefas.services;
+package io.github.karinasasaki.gerenciadordetarefas.services;
 
-import com.karinasasaki.gerenciadordetarefas.controllers.dtos.AtualizarTarefaDTO;
-import com.karinasasaki.gerenciadordetarefas.controllers.dtos.CriarTarefaDTO;
-import com.karinasasaki.gerenciadordetarefas.entities.Tarefa;
-import com.karinasasaki.gerenciadordetarefas.entities.enums.StatusTarefa;
-import com.karinasasaki.gerenciadordetarefas.repositories.TarefaRepository;
+import io.github.karinasasaki.gerenciadordetarefas.controllers.dtos.AtualizarTarefaDTO;
+import io.github.karinasasaki.gerenciadordetarefas.controllers.dtos.CriarTarefaDTO;
+import io.github.karinasasaki.gerenciadordetarefas.entities.Tarefa;
+import io.github.karinasasaki.gerenciadordetarefas.entities.enums.StatusTarefa;
+import io.github.karinasasaki.gerenciadordetarefas.repositories.TarefaRepository;
 import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
