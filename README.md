@@ -88,6 +88,8 @@ Acesse o link:
 ```
 http://localhost:8080/banco-de-dados/
 ```
+Insira os mesmos dados da imagens para acessar:  
+![image](https://github.com/user-attachments/assets/cb1663df-d77c-45ab-9d22-599143d083c4)
 
 ### Para acessar a documentação da API:
 Acesse o link:
