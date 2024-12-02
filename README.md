@@ -11,8 +11,8 @@ API simples para Gerenciamento de Tarefas criado com Java e Spring Boot.
 - **Gerenciador de dependências**: Maven
 - **Linguagem de programação**: Java 21
 - **Framework**: Spring Boot 3.4.0
-- **Gerenciador de banco de dados**: [H2](http://localhost:8080/banco-de-dados)
-- **Documentação da API**: [Swagger](http://localhost:8080/swagger-ui/index.html)
+- **Gerenciador de banco de dados**: H2
+- **Documentação da API**: Swagger
 - **Teste unitário**: JUnit e Mockito
 
 ### 📝 Funcionalidades
@@ -29,10 +29,12 @@ API simples para Gerenciamento de Tarefas criado com Java e Spring Boot.
 1. Clone este projeto na sua máquina
 2. Instale as dependências necessárias:
 - Java 21
-3. Executando o projeto:
+3. Comando para executar o projeto:
 ```
 mvn spring-boot:run
 ```
+
+<br>
 
 ## ✅ Como utilizar a API
 
@@ -81,8 +83,20 @@ mvn spring-boot:run
   - name: ```tamanhoPagina```
   - value: ```10``` (padrão)
 
+### Para acessar o banco de dados:
+Acesse o link:
+```
+http://localhost:8080/banco-de-dados/
+```
+
+### Para acessar a documentação da API:
+Acesse o link:
+```
+http://localhost:8080/swagger-ui/index.html
+```
+
+<br>
+
 ## 📖 Wiki
 
 [🤝 Regras de negócio](https://github.com/karinasasaki/gerenciador-de-tarefas/wiki/%F0%9F%A4%9D-Regras-de-neg%C3%B3cio)
-
-[🔨 Teste Unitário](https://github.com/karinasasaki/gerenciador-de-tarefas/wiki/%F0%9F%94%A8-Teste-Unit%C3%A1rio)
