@@ -1,47 +1,88 @@
-# Gerenciador de Tarefas
-API para Gerenciamento de Tarefas.
+<h1 align="center">Gerenciador de Tarefas</h1>
 
-### Descrição do Problema:
-Você foi contratado para desenvolver uma API simples de gerenciamento de tarefas. A API deve permitir que os usuários possam:
-- Criar uma tarefa.
-- Atualizar uma tarefa.
-- Listar todas as tarefas.
-- Excluir uma tarefa.
+<br>
 
-### Cada tarefa deve ter os seguintes campos:
-- id (gerado automaticamente)
-- titulo (string, obrigatório)
-- descricao (string, opcional)
-- status (string, obrigatório: "PENDENTE", "EM_ANDAMENTO", ou "CONCLUIDA")
-- dataCriacao (data/hora, gerada automaticamente)
-- dataConclusao (data/hora, opcional)
+## 💻 Sobre o projeto
 
-### Requisitos Técnicos:
-- Use Java e o framework Spring Boot para desenvolver a API.
-- Utilize banco de dados relacional (pode ser em memória, como H2).
-- Documente a API usando Swagger.
-- Implemente as operações usando os verbos HTTP adequados:
-  - POST para criar.
-  - PUT para atualizar.
-  - GET para listar.
-  - DELETE para excluir.
-- Garanta que as validações necessárias sejam feitas, como campos obrigatórios.
+API simples para Gerenciamento de Tarefas criado com Java e Spring Boot.
 
-#### Extras (não obrigatórios, mas serão considerados diferenciais):
-- Implementação de paginação para listagem
-- Logs básicos utilizando o framework de logging de sua escolha.
-- Testes unitários simples para os serviços ou controladores.
+### 🚀 Tecnologias
 
-### Entrega:
-- Disponibilize o código em um repositório público no GitHub ou em um arquivo compactado.
-- Inclua um arquivo README.md com instruções para rodar o projeto e testar a API.
+- **Gerenciador de dependências**: Maven
+- **Linguagem de programação**: Java 21
+- **Framework**: Spring Boot 3.4.0
+- **Gerenciador de banco de dados**: [H2](http://localhost:8080/banco-de-dados)
+- **Documentação da API**: [Swagger](http://localhost:8080/swagger-ui/index.html)
+- **Teste unitário**: JUnit e Mockito
 
-<hr>
+### 📝 Funcionalidades
 
-## Tecnologias:
-- Maven
-- Java 17
-- Spring Boot 3.4.0
-- [H2](http://localhost:8080/banco-de-dados)
-- [Swagger](http://localhost:8080/swagger-ui/index.html)
-- JUnit e Mockito
+- Criar uma tarefa
+- Atualizar uma tarefa
+- Listar todas as tarefas (com paginação)
+- Excluir uma tarefa
+
+<br>
+
+## 👩‍💻 Instalação e execução
+
+1. Clone este projeto na sua máquina
+2. Instale as dependências necessárias:
+- Java 21
+3. Executando o projeto:
+```
+mvn spring-boot:run
+```
+
+## ✅ Como utilizar a API
+
+### Para criar uma tarefa:
+- Requisição: POST
+- URL: ```http://localhost:8080/tarefas```
+- Headers:
+  - header: ```Content-Type```
+  - value: ```application/json```
+- Body:
+```
+{
+	"titulo": "Ajustar formatação de hora e data",
+	"descricao": "Retornar a data e hora no padrão ISO",
+	"status": "PENDENTE",
+	"dataConclusao": "05/01/2025 18:00:00"
+}
+```
+
+### Para atualizar uma tarefa:
+- Requisição: PUT
+- URL: ```http://localhost:8080/tarefas/1```
+- Headers:
+  - header: ```Content-Type```
+  - value: ```application/json```
+- Body:
+```
+{
+	"titulo": "Limpar o código",
+	"descricao": "Remover linhas desnecessárias",
+	"status": "EM_ANDAMENTO",
+	"dataConclusao": null
+}
+```
+
+### Para excluir uma tarefa:
+- Requisição: DELETE
+- URL: ```http://localhost:8080/tarefas/1```
+
+### Para listar as tarefas:
+- Requisição: GET
+- URL: ```http://localhost:8080/tarefas/```
+- Query params (opcionais):
+  - name: ```name```
+  - value: ```0``` (padrão)
+  - name: ```tamanhoPagina```
+  - value: ```10``` (padrão)
+
+## 📖 Wiki
+
+[🤝 Regras de negócio](https://github.com/karinasasaki/gerenciador-de-tarefas/wiki/%F0%9F%A4%9D-Regras-de-neg%C3%B3cio)
+
+[🔨 Teste Unitário](https://github.com/karinasasaki/gerenciador-de-tarefas/wiki/%F0%9F%94%A8-Teste-Unit%C3%A1rio)
