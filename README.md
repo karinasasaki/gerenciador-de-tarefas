@@ -4,7 +4,7 @@
 
 ## 💻 Sobre o projeto
 
-API simples para Gerenciamento de Tarefas criado com Java e Spring Boot.
+API simples para Gerenciamento de Tarefas criado com Java e Spring Boot seguindo o padrão Controller-Service-Repository.
 
 ### 🚀 Tecnologias
 
