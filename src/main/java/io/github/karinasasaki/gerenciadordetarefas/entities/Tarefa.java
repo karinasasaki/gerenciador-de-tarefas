@@ -11,6 +11,8 @@ import lombok.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Calendar;
 
 @Entity
@@ -41,10 +43,10 @@ public class Tarefa implements Serializable {
   @Column(nullable = false)
   private String status = "PENDENTE";
 
-  @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss", timezone = "UTC")
+  @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
   @Setter(AccessLevel.NONE)
   @Column(nullable = false, updatable = false)
-  private final Instant dataCriacao = Instant.now();
+  private final ZonedDateTime dataCriacao = Instant.now().atZone((ZoneId.systemDefault()));
 
   private Calendar dataConclusao;
 
@@ -72,7 +74,7 @@ public class Tarefa implements Serializable {
   public void dataConclusaoDeveSerMaiorQueDataCriacao() {
     if (this.getDataConclusao() != null) {
       Instant dataConclusao = this.getDataConclusao().toInstant();
-      if (dataConclusao.isBefore(this.getDataCriacao())) {
+      if (dataConclusao.isBefore(this.getDataCriacao().toInstant())) {
         throw new ValidationException("A dataConclusao deve ser posterior a dataCriacao");
       }
     }
