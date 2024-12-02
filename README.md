@@ -14,6 +14,7 @@ API simples para Gerenciamento de Tarefas criado com Java e Spring Boot seguindo
 - **Gerenciador de banco de dados**: H2
 - **Documentação da API**: Swagger
 - **Teste unitário**: JUnit e Mockito
+- **Logging**: Slf4j
 
 ### 📝 Funcionalidades
 
