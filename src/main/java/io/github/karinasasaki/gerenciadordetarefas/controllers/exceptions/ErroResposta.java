@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Calendar;
+import java.time.Instant;
 
 @NoArgsConstructor
 @Data
@@ -13,7 +13,7 @@ public class ErroResposta implements Serializable {
   @Serial
   private static final long serialVersionUID = 1L;
 
-  private Calendar timestamp = Calendar.getInstance();
+  private Instant timestamp = Instant.now();
   private Integer status;
   private String error;
   private String path;

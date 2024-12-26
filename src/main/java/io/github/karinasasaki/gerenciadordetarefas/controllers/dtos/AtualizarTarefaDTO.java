@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
 
-import java.util.Calendar;
+import java.time.Instant;
 
 @Schema(name = "Tarefa")
 @Builder
@@ -14,6 +14,6 @@ public record AtualizarTarefaDTO(
     @Size(max = 1500, message = "O tamanho do campo descricao excedeu 1500 caracteres")
     String descricao,
     String status,
-    Calendar dataConclusao
+    Instant dataConclusao
 ) {
 }

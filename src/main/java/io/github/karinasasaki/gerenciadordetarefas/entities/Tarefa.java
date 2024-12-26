@@ -1,6 +1,5 @@
 package io.github.karinasasaki.gerenciadordetarefas.entities;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.github.karinasasaki.gerenciadordetarefas.entities.enums.StatusTarefa;
 import jakarta.persistence.*;
 import jakarta.validation.ValidationException;
@@ -11,9 +10,6 @@ import lombok.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.Instant;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.Calendar;
 
 @Entity
 @Data
@@ -43,12 +39,11 @@ public class Tarefa implements Serializable {
   @Column(nullable = false)
   private String status = "PENDENTE";
 
-  @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
   @Setter(AccessLevel.NONE)
   @Column(nullable = false, updatable = false)
-  private final ZonedDateTime dataCriacao = Instant.now().atZone((ZoneId.systemDefault()));
+  private final Instant dataCriacao = Instant.now();
 
-  private Calendar dataConclusao;
+  private Instant dataConclusao;
 
   public Tarefa(String titulo, String descricao) {
     this.titulo = titulo;
@@ -73,8 +68,8 @@ public class Tarefa implements Serializable {
 
   public void dataConclusaoDeveSerMaiorQueDataCriacao() {
     if (this.getDataConclusao() != null) {
-      Instant dataConclusao = this.getDataConclusao().toInstant();
-      if (dataConclusao.isBefore(this.getDataCriacao().toInstant())) {
+      Instant dataConclusao = this.getDataConclusao();
+      if (dataConclusao.isBefore(this.getDataCriacao())) {
         throw new ValidationException("A dataConclusao deve ser posterior a dataCriacao");
       }
     }
