@@ -51,7 +51,7 @@ mvn spring-boot:run
 	"titulo": "Ajustar formatação de hora e data",
 	"descricao": "Retornar a data e hora no padrão ISO",
 	"status": "PENDENTE",
-	"dataConclusao": "05/01/2025 18:00:00"
+	"dataConclusao": "05/01/2025 18:00"
 }
 ```
 
