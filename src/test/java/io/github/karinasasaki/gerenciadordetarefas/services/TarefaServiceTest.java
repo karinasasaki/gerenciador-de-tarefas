@@ -2,6 +2,7 @@ package io.github.karinasasaki.gerenciadordetarefas.services;
 
 import io.github.karinasasaki.gerenciadordetarefas.controllers.dtos.AtualizarTarefaDTO;
 import io.github.karinasasaki.gerenciadordetarefas.controllers.dtos.CriarTarefaDTO;
+import io.github.karinasasaki.gerenciadordetarefas.controllers.dtos.RetornoTarefaDTO;
 import io.github.karinasasaki.gerenciadordetarefas.entities.Tarefa;
 import io.github.karinasasaki.gerenciadordetarefas.repositories.TarefaRepository;
 import org.junit.jupiter.api.Assertions;
@@ -15,6 +16,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -34,7 +39,7 @@ class TarefaServiceTest {
 
     Mockito.when(repository.findAll(Mockito.any(Pageable.class))).thenReturn(tarefas);
 
-    Page<Tarefa> listaVazia = service.listarTarefas(0, 10);
+    Page<RetornoTarefaDTO> listaVazia = service.listarTarefas(0, 10);
 
     Assertions.assertNotNull(listaVazia);
     Assertions.assertFalse(listaVazia.hasContent());
@@ -49,7 +54,7 @@ class TarefaServiceTest {
 
     Mockito.when(repository.findAll(Mockito.any(Pageable.class))).thenReturn(tarefas);
 
-    Page<Tarefa> duasTarefas = service.listarTarefas(0, 10);
+    Page<RetornoTarefaDTO> duasTarefas = service.listarTarefas(0, 10);
 
     Assertions.assertNotNull(duasTarefas);
     Assertions.assertEquals(2, duasTarefas.getTotalElements());
@@ -57,14 +62,23 @@ class TarefaServiceTest {
 
   @Test
   void TarefaService_CriarTarefa_DeveRetornarTarefaCriada() {
-    Tarefa retornoEsperado = Tarefa.builder()
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    RetornoTarefaDTO retornoEsperado = RetornoTarefaDTO.builder()
+        .id(1)
+        .titulo("Criar cartão")
+        .descricao("Ajustar cor do botão")
+        .status("PENDENTE")
+        .dataCriacao(LocalDateTime.ofInstant(Instant.now(), ZoneId.systemDefault()).format(formatter))
+        .dataConclusao(null).build();
+
+    Tarefa tarefa = Tarefa.builder()
         .id(1)
         .titulo("Criar cartão")
         .descricao("Ajustar cor do botão")
         .status("PENDENTE")
         .dataConclusao(null).build();
 
-    Mockito.when(repository.save(Mockito.any(Tarefa.class))).thenReturn(retornoEsperado);
+    Mockito.when(repository.save(Mockito.any(Tarefa.class))).thenReturn(tarefa);
 
     CriarTarefaDTO dto = CriarTarefaDTO.builder()
         .titulo("Criar cartão")
@@ -72,14 +86,24 @@ class TarefaServiceTest {
         .dataConclusao(null).build();
 
     Tarefa tarefaCriada = service.criarTarefa(dto);
+    RetornoTarefaDTO retornoTarefaDTO = RetornoTarefaDTO.fromEntity(tarefaCriada);
 
-    Assertions.assertNotNull(tarefaCriada);
-    Assertions.assertEquals(retornoEsperado, tarefaCriada);
+    Assertions.assertNotNull(retornoTarefaDTO);
+    Assertions.assertEquals(retornoEsperado, retornoTarefaDTO);
   }
 
   @Test
   void TarefaService_AtualizarTarefa_DeveRetornarTarefaAtualizada() {
-    Tarefa retornoEsperado = Tarefa.builder()
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    RetornoTarefaDTO retornoEsperado = RetornoTarefaDTO.builder()
+        .id(1)
+        .titulo("Avaliar PR")
+        .descricao(null)
+        .status("EM_ANDAMENTO")
+        .dataCriacao(LocalDateTime.ofInstant(Instant.now(), ZoneId.systemDefault()).format(formatter))
+        .dataConclusao(null).build();
+
+    Tarefa tarefa = Tarefa.builder()
         .id(1)
         .titulo("Avaliar PR")
         .descricao(null)
@@ -94,15 +118,16 @@ class TarefaServiceTest {
         .dataConclusao(null).build();
 
     Mockito.when(repository.findById(1)).thenReturn(Optional.ofNullable(tarefaDesatualizada));
-    Mockito.when(repository.save(Mockito.any(Tarefa.class))).thenReturn(retornoEsperado);
+    Mockito.when(repository.save(Mockito.any(Tarefa.class))).thenReturn(tarefa);
 
     AtualizarTarefaDTO dto = AtualizarTarefaDTO.builder()
         .status("EM_ANDAMENTO").build();
 
     Tarefa tarefaAtualizada = service.atualizarTarefa(1, dto);
+    RetornoTarefaDTO retornoTarefaDTO = RetornoTarefaDTO.fromEntity(tarefaAtualizada);
 
     Assertions.assertNotNull(tarefaAtualizada);
-    Assertions.assertEquals(retornoEsperado, tarefaAtualizada);
+    Assertions.assertEquals(retornoEsperado, retornoTarefaDTO);
   }
 
   @Test
