@@ -8,6 +8,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Builder;
 
 import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 @Schema(name = "Tarefa")
 @Builder
@@ -18,7 +20,7 @@ public record CriarTarefaDTO(
     @Size(max = 1500, message = "O tamanho do campo descricao excedeu 1500 caracteres")
     String descricao,
     String status,
-    Instant dataConclusao
+    String dataConclusao
 ) {
 
   public Tarefa mapParaTarefaEntidade() {
@@ -31,7 +33,8 @@ public record CriarTarefaDTO(
     if (this.status != null)
       tarefa.setStatus(StatusTarefa.getStatus(this.status));
 
-    tarefa.setDataConclusao(this.dataConclusao);
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm").withZone(ZoneId.systemDefault());
+    tarefa.setDataConclusao(Instant.from(formatter.parse(this.dataConclusao)));
     
     return tarefa;
   }

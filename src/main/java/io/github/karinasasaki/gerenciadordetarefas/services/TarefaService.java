@@ -11,6 +11,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 
@@ -63,8 +66,9 @@ public class TarefaService {
     if (dto.status() != null) {
       tarefa.setStatus(StatusTarefa.getStatus(dto.status()));
     }
-    
-    tarefa.setDataConclusao(dto.dataConclusao());
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm").withZone(ZoneId.systemDefault());
+    tarefa.setDataConclusao(Instant.from(formatter.parse(dto.dataConclusao())));
 
     tarefa.anularDescricaoEmBranco();
     tarefa.dataConclusaoDeveSerMaiorQueDataCriacao();
