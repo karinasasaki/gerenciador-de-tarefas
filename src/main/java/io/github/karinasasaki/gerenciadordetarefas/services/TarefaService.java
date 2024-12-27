@@ -2,6 +2,7 @@ package io.github.karinasasaki.gerenciadordetarefas.services;
 
 import io.github.karinasasaki.gerenciadordetarefas.controllers.dtos.AtualizarTarefaDTO;
 import io.github.karinasasaki.gerenciadordetarefas.controllers.dtos.CriarTarefaDTO;
+import io.github.karinasasaki.gerenciadordetarefas.controllers.dtos.RetornoTarefaDTO;
 import io.github.karinasasaki.gerenciadordetarefas.entities.Tarefa;
 import io.github.karinasasaki.gerenciadordetarefas.entities.enums.StatusTarefa;
 import io.github.karinasasaki.gerenciadordetarefas.repositories.TarefaRepository;
@@ -27,9 +28,9 @@ public class TarefaService {
     this.repository = repository;
   }
 
-  public Page<Tarefa> listarTarefas(Integer pagina, Integer tamanhoPagina) {
+  public Page<RetornoTarefaDTO> listarTarefas(Integer pagina, Integer tamanhoPagina) {
     Pageable pageable = PageRequest.of(pagina, tamanhoPagina);
-    return repository.findAll(pageable);
+    return repository.findAll(pageable).map(RetornoTarefaDTO::fromEntity);
   }
 
   public Tarefa criarTarefa(CriarTarefaDTO dto) {
@@ -67,8 +68,12 @@ public class TarefaService {
       tarefa.setStatus(StatusTarefa.getStatus(dto.status()));
     }
 
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm").withZone(ZoneId.systemDefault());
-    tarefa.setDataConclusao(Instant.from(formatter.parse(dto.dataConclusao())));
+    if (dto.dataConclusao() != null) {
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm").withZone(ZoneId.systemDefault());
+      tarefa.setDataConclusao(Instant.from(formatter.parse(dto.dataConclusao())));
+    } else {
+      tarefa.setDataConclusao(null);
+    }
 
     tarefa.anularDescricaoEmBranco();
     tarefa.dataConclusaoDeveSerMaiorQueDataCriacao();

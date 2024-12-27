@@ -2,6 +2,7 @@ package io.github.karinasasaki.gerenciadordetarefas.controllers;
 
 import io.github.karinasasaki.gerenciadordetarefas.controllers.dtos.AtualizarTarefaDTO;
 import io.github.karinasasaki.gerenciadordetarefas.controllers.dtos.CriarTarefaDTO;
+import io.github.karinasasaki.gerenciadordetarefas.controllers.dtos.RetornoTarefaDTO;
 import io.github.karinasasaki.gerenciadordetarefas.entities.Tarefa;
 import io.github.karinasasaki.gerenciadordetarefas.services.TarefaService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -34,11 +35,11 @@ public class TarefaController {
   @ApiResponses({
       @ApiResponse(responseCode = "200", description = "Listado com sucesso.")
   })
-  public ResponseEntity<Page<Tarefa>> listarTarefas(
+  public ResponseEntity<Page<RetornoTarefaDTO>> listarTarefas(
       @RequestParam(defaultValue = "0") Integer pagina,
       @RequestParam(defaultValue = "10") Integer tamanhoPagina) {
     log.info("Listando tarefas");
-    Page<Tarefa> tarefas = service.listarTarefas(pagina, tamanhoPagina);
+    Page<RetornoTarefaDTO> tarefas = service.listarTarefas(pagina, tamanhoPagina);
     log.info("Tarefas listadas com sucesso: {}", tarefas);
 
     return ResponseEntity.ok().body(tarefas);
@@ -50,17 +51,19 @@ public class TarefaController {
       @ApiResponse(responseCode = "201", description = "Cadastrado com sucesso."),
       @ApiResponse(responseCode = "400", description = "Erro de validação.")
   })
-  public ResponseEntity<Tarefa> criarTarefa(@RequestBody CriarTarefaDTO dto) {
+  public ResponseEntity<RetornoTarefaDTO> criarTarefa(@RequestBody CriarTarefaDTO dto) {
     log.info("Criando tarefa");
     Tarefa tarefa = service.criarTarefa(dto);
     log.info("Tarefa criada com sucesso: {}", tarefa);
 
+    RetornoTarefaDTO retornoTarefaDTO = RetornoTarefaDTO.fromEntity(tarefa);
+
     URI uri = ServletUriComponentsBuilder
         .fromCurrentRequest()
         .path("{id}")
-        .buildAndExpand(tarefa.getId())
+        .buildAndExpand(retornoTarefaDTO.id())
         .toUri();
-    return ResponseEntity.created(uri).body(tarefa);
+    return ResponseEntity.created(uri).body(retornoTarefaDTO);
   }
 
   @DeleteMapping(value = "{id}")
@@ -82,10 +85,12 @@ public class TarefaController {
       @ApiResponse(responseCode = "400", description = "Erro de validação."),
       @ApiResponse(responseCode = "404", description = "Não encontrado.")
   })
-  public ResponseEntity<Tarefa> atualizarTarefa(@PathVariable Integer id, @Valid @RequestBody AtualizarTarefaDTO dto) {
+  public ResponseEntity<RetornoTarefaDTO> atualizarTarefa(@PathVariable Integer id, @Valid @RequestBody AtualizarTarefaDTO dto) {
     log.info("Atualizando tarefa id: {}", id);
     Tarefa tarefa = service.atualizarTarefa(id, dto);
     log.info("Tarefa atualizada com sucesso: {}", tarefa);
-    return ResponseEntity.ok().body(tarefa);
+
+    RetornoTarefaDTO retornoTarefaDTO = RetornoTarefaDTO.fromEntity(tarefa);
+    return ResponseEntity.ok().body(retornoTarefaDTO);
   }
 }

@@ -33,8 +33,12 @@ public record CriarTarefaDTO(
     if (this.status != null)
       tarefa.setStatus(StatusTarefa.getStatus(this.status));
 
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm").withZone(ZoneId.systemDefault());
-    tarefa.setDataConclusao(Instant.from(formatter.parse(this.dataConclusao)));
+    if (this.dataConclusao != null) {
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm").withZone(ZoneId.systemDefault());
+      tarefa.setDataConclusao(Instant.from(formatter.parse(this.dataConclusao)));
+    } else {
+      tarefa.setDataConclusao(null);
+    }
     
     return tarefa;
   }
